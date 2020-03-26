@@ -18,7 +18,7 @@ namespace PlanYourHeist
             }
             set
             {
-                if (value > 0 && value < 11)
+                if (value > 0 && value < 51)
                 {
                     _skillLevel = value;
                 }
