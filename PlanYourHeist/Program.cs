@@ -12,6 +12,8 @@ namespace PlanYourHeist
 
             var teamMembers = new List<TeamMember>();
 
+            var newBank = new Bank();
+
             while (true)
             {
                 Console.WriteLine("Please enter the team member's first name.");
@@ -34,6 +36,14 @@ namespace PlanYourHeist
                 teamMembers.Add(teamMember);
 
             }
+
+            Console.WriteLine("Please enter the number of trial runs this app should execute.");
+            var trialRuns = int.Parse(Console.ReadLine());
+            for (int i = 0; i < trialRuns; i++)
+            {
+                RobTheBank(newBank, teamMembers);
+            }
+
             var numOfMembers = teamMembers.Count();
             Console.WriteLine($"There are {numOfMembers} members");
 
@@ -42,16 +52,30 @@ namespace PlanYourHeist
                 Console.WriteLine($"{teamMember.Name} has a skill level of {teamMember.SkillLevel} and courage factor of {teamMember.CourageFactor}.");
             }*/
 
-            var sumOfMembersSkill = 0;
 
-            foreach(var teamMember in teamMembers)
+            
+
+            
+        }
+
+        public static void RobTheBank(Bank bankDifficulty, List<TeamMember> teamMembers)
+        {
+            var random = new Random();
+            var luckValue = random.Next(-10, 10);
+
+            var bankDifficultyLevelWithLuck = bankDifficulty.BankDifficulty + luckValue;
+
+            var sumOfMembersSkill = teamMembers.Sum(teamMember => teamMember.SkillLevel);
+
+            /*foreach(var teamMember in teamMembers)
             {
                 sumOfMembersSkill += teamMember.SkillLevel;
-            }
+            }*/
 
-            var newBank = new Bank();
+            Console.WriteLine($"Your team has a total skill level of {sumOfMembersSkill}.");
+            Console.WriteLine($"This bank has a difficulty of {bankDifficultyLevelWithLuck}");
 
-            if (sumOfMembersSkill >= newBank.BankDifficulty)
+            if (sumOfMembersSkill >= bankDifficultyLevelWithLuck)
             {
                 Console.WriteLine("You rob the bank and get away scot free!");
             }
