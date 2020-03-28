@@ -12,6 +12,13 @@ namespace PlanYourHeist
 
             var teamMembers = new List<TeamMember>();
 
+            var newBank = new Bank();
+
+            Console.WriteLine("Please enter the difficulty level of the bank.");
+            var difficultyLevel = int.Parse(Console.ReadLine());
+
+            newBank.BankDifficulty = difficultyLevel;
+
             while (true)
             {
                 Console.WriteLine("Please enter the team member's first name.");
@@ -34,30 +41,66 @@ namespace PlanYourHeist
                 teamMembers.Add(teamMember);
 
             }
-            var numOfMembers = teamMembers.Count();
+
+            Console.WriteLine("Please enter the number of trial runs this app should execute.");
+            var trialRuns = int.Parse(Console.ReadLine());
+
+            var successfulRuns = 0;
+            var failedRuns = 0;
+
+            for (int i = 0; i < trialRuns; i++)
+            {
+                var outcome = RobTheBank(newBank, teamMembers);
+                if (outcome)
+                {
+                    successfulRuns++;
+                }
+                else
+                {
+                    failedRuns++;
+                }
+            }
+
+            /*var numOfMembers = teamMembers.Count();
             Console.WriteLine($"There are {numOfMembers} members");
 
-            /*foreach(var teamMember in teamMembers)
+            foreach (var teamMember in teamMembers)
             {
                 Console.WriteLine($"{teamMember.Name} has a skill level of {teamMember.SkillLevel} and courage factor of {teamMember.CourageFactor}.");
             }*/
 
-            var sumOfMembersSkill = 0;
+            Console.WriteLine($"You succeeded {successfulRuns} times and failed {failedRuns} times.");
 
-            foreach(var teamMember in teamMembers)
+
+
+        }
+
+        public static bool RobTheBank(Bank bankDifficulty, List<TeamMember> teamMembers)
+        {
+            var random = new Random();
+            var luckValue = random.Next(-10, 10);
+
+            var bankDifficultyLevelWithLuck = bankDifficulty.BankDifficulty + luckValue;
+
+            var sumOfMembersSkill = teamMembers.Sum(teamMember => teamMember.SkillLevel);
+
+            /*foreach(var teamMember in teamMembers)
             {
                 sumOfMembersSkill += teamMember.SkillLevel;
-            }
+            }*/
 
-            var newBank = new Bank();
+            Console.WriteLine($"Your team has a total skill level of {sumOfMembersSkill}.");
+            Console.WriteLine($"This bank has a difficulty of {bankDifficultyLevelWithLuck}");
 
-            if (sumOfMembersSkill >= newBank.BankDifficulty)
+            if (sumOfMembersSkill >= bankDifficultyLevelWithLuck)
             {
                 Console.WriteLine("You rob the bank and get away scot free!");
+                return true;
             }
             else
             {
                 Console.WriteLine("Your team kind of sucks so you go to jail.");
+                return false;
             }
         }
     }
