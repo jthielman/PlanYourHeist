@@ -50,7 +50,7 @@ namespace PlanYourHeist
 
             for (int i = 0; i < trialRuns; i++)
             {
-                var outcome = RobTheBank(newBank, teamMembers);
+                var outcome = newBank.TryRob(teamMembers);
                 if (outcome)
                 {
                     successfulRuns++;
@@ -75,33 +75,33 @@ namespace PlanYourHeist
 
         }
 
-        public static bool RobTheBank(Bank bankDifficulty, List<TeamMember> teamMembers)
-        {
-            var random = new Random();
-            var luckValue = random.Next(-10, 10);
+        //public static bool RobTheBank(Bank bankDifficulty, List<TeamMember> teamMembers)
+        //{
+        //    var random = new Random();
+        //    var luckValue = random.Next(-10, 10);
 
-            var bankDifficultyLevelWithLuck = bankDifficulty.BankDifficulty + luckValue;
+        //    var bankDifficultyLevelWithLuck = bankDifficulty.BankDifficulty + luckValue;
 
-            var sumOfMembersSkill = teamMembers.Sum(teamMember => teamMember.SkillLevel);
+        //    var sumOfMembersSkill = teamMembers.Sum(teamMember => teamMember.SkillLevel);
 
-            /*foreach(var teamMember in teamMembers)
-            {
-                sumOfMembersSkill += teamMember.SkillLevel;
-            }*/
+        //    /*foreach(var teamMember in teamMembers)
+        //    {
+        //        sumOfMembersSkill += teamMember.SkillLevel;
+        //    }*/
 
-            Console.WriteLine($"Your team has a total skill level of {sumOfMembersSkill}.");
-            Console.WriteLine($"This bank has a difficulty of {bankDifficultyLevelWithLuck}");
+        //    Console.WriteLine($"Your team has a total skill level of {sumOfMembersSkill}.");
+        //    Console.WriteLine($"This bank has a difficulty of {bankDifficultyLevelWithLuck}");
 
-            if (sumOfMembersSkill >= bankDifficultyLevelWithLuck)
-            {
-                Console.WriteLine("You rob the bank and get away scot free!");
-                return true;
-            }
-            else
-            {
-                Console.WriteLine("Your team kind of sucks so you go to jail.");
-                return false;
-            }
-        }
+        //    if (sumOfMembersSkill >= bankDifficultyLevelWithLuck)
+        //    {
+        //        Console.WriteLine("You rob the bank and get away scot free!");
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine("Your team kind of sucks so you go to jail.");
+        //        return false;
+        //    }
+        //}
     }
 }
